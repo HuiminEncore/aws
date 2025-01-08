@@ -1,0 +1,11 @@
+{
+    "paths": {
+        "/device/control": {
+            "name": "/device/control",
+            "lambdaFunction": "deviceControl",
+            "permissions": {
+                "setting": "private"
+            }
+        }
+    }
+}
