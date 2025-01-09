@@ -14,14 +14,14 @@ const schema = a.schema({
     .authorization((allow) => [allow.publicApiKey()]),
   Data: a
     .model({
-      battery: a.float(),
-      co2: a.float(),
-      humidity: a.float(),
-      light_level: a.float(),
+      battery: a.string(),
+      co2: a.string(),
+      humidity: a.string(),
+      light_level: a.string(),
       pir: a.string(),
-      pressure: a.float(),
-      temperature: a.float(),
-      tvoc: a.float(),
+      pressure: a.string(),
+      temperature: a.string(),
+      tvoc: a.string(),
     })
     .authorization((allow) => [allow.publicApiKey()]),
 });
