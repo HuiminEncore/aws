@@ -112,8 +112,11 @@ export default function App() {
       <div className="device-info">
         {deviceData.map((device) => {
           const parsedData = JSON.parse(device.device_data as string);
+          console.log("device_data", device.device_data);
+          console.log("parsedData", parsedData);
           return (
             <div key={device.id} className="sensor-card">
+              <h2>parsedData: {parsedData}</h2>
               <p>Device ID: {parsedData.deviceId.S}</p>
               <p>Time: {parsedData.time.S}</p>
               <p>Temperature: {parsedData.temperature.N}°C</p>
