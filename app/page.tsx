@@ -116,26 +116,17 @@ export default function App() {
           console.log("parsedData", parsedData);
           return (
             <div key={device.id} className="sensor-card">
-              <h2>parsedData: {parsedData}</h2>
-              <p>Device ID: {parsedData.deviceId.S}</p>
-              <p>Time: {parsedData.time.S}</p>
-              <p>Temperature: {parsedData.temperature.N}°C</p>
-              <p>Humidity: {parsedData.humidity.N}%</p>
-              <p>Pressure: {parsedData.pressure.N} hPa</p>
-              <p>CO2: {parsedData.co2.N} ppm</p>
-              <p>TVOC: {parsedData.tvoc.N} ppb</p>
-              <p>Light Level: {parsedData.lightlevel.N}</p>
-              <p>Battery: {parsedData.battery.N}%</p>
-              <p>PIR Status: {parsedData.pir.S}</p>
-              <p>Type: {parsedData.typename.S}</p>
-              <p>
-                Created:{" "}
-                {new Date(Number(parsedData.createdAt.N)).toLocaleString()}
-              </p>
-              <p>
-                Updated:{" "}
-                {new Date(Number(parsedData.updatedAt.N)).toLocaleString()}
-              </p>
+              <p>Device ID: {parsedData.deviceId}</p>
+              <p>Time: {parsedData.time}</p>
+              <p>Temperature: {parsedData.temperature}</p>
+              <p>Humidity: {parsedData.humidity}</p>
+              <p>Pressure: {parsedData.pressure}</p>
+              <p>CO2: {parsedData.co2}</p>
+              <p>TVOC: {parsedData.tvoc}</p>
+              <p>Light Level: {parsedData.lightlevel}</p>
+              <p>Battery: {parsedData.battery}</p>
+              <p>PIR Status: {parsedData.pir}</p>
+              <p>Type: {parsedData.typename}</p>
             </div>
           );
         })}
