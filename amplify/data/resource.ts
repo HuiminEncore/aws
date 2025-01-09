@@ -15,16 +15,7 @@ const schema = a.schema({
     .authorization((allow) => [allow.publicApiKey()]),
   Data: a
     .model({
-      deviceId: a.string(),
-      battery: a.string(),
-      co2: a.string(),
-      humidity: a.string(),
-      light_level: a.string(),
-      pir: a.string(),
-      pressure: a.string(),
-      temperature: a.string(),
-      time: a.string(),
-      tvoc: a.string(),
+      device_data: a.json(),
     })
     .authorization((allow) => [allow.publicApiKey()]),
   Thing: a

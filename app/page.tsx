@@ -16,6 +16,7 @@ export default function App() {
   const [deviceData, setDeviceData] = useState<Array<Schema["Data"]["type"]>>(
     []
   );
+
   const [things, setThings] = useState<Array<Schema["Thing"]["type"]>>([]);
   const [showForm, setShowForm] = useState(false);
   const [formData, setFormData] = useState({
@@ -109,20 +110,32 @@ export default function App() {
       </ul>
       <h1>Device Data</h1>
       <div className="device-info">
-        {deviceData.map((device) => (
-          <div key={device.id}>
-            <p>Time: {device.time}</p>
-            <p>Device ID: {device.deviceId}</p>
-            <p>Battery: {device.battery}%</p>
-            <p>CO2: {device.co2} ppm</p>
-            <p>Humidity: {device.humidity}%</p>
-            <p>Light Level: {device.light_level}</p>
-            <p>PIR Status: {device.pir}</p>
-            <p>Pressure: {device.pressure} hPa</p>
-            <p>Temperature: {device.temperature}°C</p>
-            <p>TVOC: {device.tvoc} ppb</p>
-          </div>
-        ))}
+        {deviceData.map((device) => {
+          const parsedData = JSON.parse(device.device_data as string);
+          return (
+            <div key={device.id} className="sensor-card">
+              <p>Device ID: {parsedData.deviceId.S}</p>
+              <p>Time: {parsedData.time.S}</p>
+              <p>Temperature: {parsedData.temperature.N}°C</p>
+              <p>Humidity: {parsedData.humidity.N}%</p>
+              <p>Pressure: {parsedData.pressure.N} hPa</p>
+              <p>CO2: {parsedData.co2.N} ppm</p>
+              <p>TVOC: {parsedData.tvoc.N} ppb</p>
+              <p>Light Level: {parsedData.lightlevel.N}</p>
+              <p>Battery: {parsedData.battery.N}%</p>
+              <p>PIR Status: {parsedData.pir.S}</p>
+              <p>Type: {parsedData.typename.S}</p>
+              <p>
+                Created:{" "}
+                {new Date(Number(parsedData.createdAt.N)).toLocaleString()}
+              </p>
+              <p>
+                Updated:{" "}
+                {new Date(Number(parsedData.updatedAt.N)).toLocaleString()}
+              </p>
+            </div>
+          );
+        })}
       </div>
     </main>
   );
