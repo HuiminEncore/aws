@@ -1,4 +1,5 @@
 import { type ClientSchema, a, defineData } from "@aws-amplify/backend";
+import { time } from "console";
 
 /*== STEP 1 ===============================================================
 The section below creates a Todo database table with a "content" field. Try
@@ -21,6 +22,7 @@ const schema = a.schema({
       pir: a.string(),
       pressure: a.string(),
       temperature: a.string(),
+      time: a.string(),
       tvoc: a.string(),
     })
     .authorization((allow) => [allow.publicApiKey()]),

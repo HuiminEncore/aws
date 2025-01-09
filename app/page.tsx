@@ -28,6 +28,7 @@ export default function App() {
     client.models.Data.observeQuery().subscribe({
       next: (data) => setDeviceData([...data.items]),
     });
+    console.log(deviceData);
   }
 
   useEffect(() => {
