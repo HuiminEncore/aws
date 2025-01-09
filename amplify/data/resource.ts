@@ -26,6 +26,13 @@ const schema = a.schema({
       tvoc: a.string(),
     })
     .authorization((allow) => [allow.publicApiKey()]),
+  Thing: a
+    .model({
+      deviceId: a.string(),
+      deviceName: a.string(),
+      deviceType: a.string(),
+    })
+    .authorization((allow) => [allow.publicApiKey()]),
 });
 
 export type Schema = ClientSchema<typeof schema>;

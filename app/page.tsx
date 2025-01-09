@@ -13,16 +13,16 @@ Amplify.configure(outputs);
 const client = generateClient<Schema>();
 
 export default function App() {
-  const [todos, setTodos] = useState<Array<Schema["Todo"]["type"]>>([]);
   const [deviceData, setDeviceData] = useState<Array<Schema["Data"]["type"]>>(
     []
   );
-
-  function listTodos() {
-    client.models.Todo.observeQuery().subscribe({
-      next: (data) => setTodos([...data.items]),
-    });
-  }
+  const [things, setThings] = useState<Array<Schema["Thing"]["type"]>>([]);
+  const [showForm, setShowForm] = useState(false);
+  const [formData, setFormData] = useState({
+    deviceId: "",
+    deviceName: "",
+    deviceType: "A", // default value
+  });
 
   function listDeviceData() {
     client.models.Data.observeQuery().subscribe({
@@ -31,33 +31,82 @@ export default function App() {
     console.log(deviceData);
   }
 
+  function listThings() {
+    client.models.Thing.observeQuery().subscribe({
+      next: (data) => setThings([...data.items]),
+    });
+  }
+
   useEffect(() => {
-    listTodos();
     listDeviceData();
+    listThings();
   }, []);
 
-  function createTodo() {
-    client.models.Todo.create({
-      content: window.prompt("Todo content"),
+  function createThing(e: React.FormEvent) {
+    e.preventDefault();
+    client.models.Thing.create({
+      deviceId: formData.deviceId,
+      deviceName: formData.deviceName,
+      deviceType: formData.deviceType,
     });
+    setShowForm(false);
+    setFormData({ deviceId: "", deviceName: "", deviceType: "A" });
   }
 
   return (
     <main>
-      <h1>My todos</h1>
-      <button onClick={createTodo}>+ new</button>
+      <h1>My things</h1>
+      <button onClick={() => setShowForm(true)}>+ new</button>
+
+      {showForm && (
+        <form onSubmit={createThing} className="thing-form">
+          <input
+            type="text"
+            placeholder="Device ID"
+            value={formData.deviceId}
+            onChange={(e) =>
+              setFormData({ ...formData, deviceId: e.target.value })
+            }
+            required
+          />
+          <input
+            type="text"
+            placeholder="Device Name"
+            value={formData.deviceName}
+            onChange={(e) =>
+              setFormData({ ...formData, deviceName: e.target.value })
+            }
+            required
+          />
+          <select
+            value={formData.deviceType}
+            onChange={(e) =>
+              setFormData({ ...formData, deviceType: e.target.value })
+            }
+            required
+          >
+            <option value="A">Type A</option>
+            <option value="B">Type B</option>
+            <option value="C">Type C</option>
+          </select>
+          <div className="form-buttons">
+            <button type="submit">Create</button>
+            <button type="button" onClick={() => setShowForm(false)}>
+              Cancel
+            </button>
+          </div>
+        </form>
+      )}
+
       <ul>
-        {todos.map((todo) => (
-          <li key={todo.id}>{todo.content}</li>
+        {things.map((thing) => (
+          <li key={thing.id}>
+            <p>{thing.deviceId}</p>
+            <p>{thing.deviceName}</p>
+            <p>{thing.deviceType}</p>
+          </li>
         ))}
       </ul>
-      <div>
-        🥳 App successfully hosted. Try creating a new todo.
-        <br />
-        <a href="https://docs.amplify.aws/nextjs/start/quickstart/nextjs-app-router-client-components/">
-          Review next steps of this tutorial.
-        </a>
-      </div>
       <h1>Device Data</h1>
       <div className="device-info">
         {deviceData.map((device) => (
