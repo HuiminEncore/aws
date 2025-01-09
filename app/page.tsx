@@ -8,12 +8,16 @@ import { Amplify } from "aws-amplify";
 import outputs from "@/amplify_outputs.json";
 import "@aws-amplify/ui-react/styles.css";
 
+
 Amplify.configure(outputs);
 
 const client = generateClient<Schema>();
 
 export default function App() {
   const [todos, setTodos] = useState<Array<Schema["Todo"]["type"]>>([]);
+  const [deviceData, setDeviceData] = useState<Array<Schema["Data"]["type"]>>(
+    []
+  );
 
   function listTodos() {
     client.models.Todo.observeQuery().subscribe({
@@ -21,8 +25,15 @@ export default function App() {
     });
   }
 
+  function listDeviceData() {
+    client.models.Data.observeQuery().subscribe({
+      next: (data) => setDeviceData([...data.items]),
+    });
+  }
+
   useEffect(() => {
     listTodos();
+    listDeviceData();
   }, []);
 
   function createTodo() {
@@ -46,6 +57,21 @@ export default function App() {
         <a href="https://docs.amplify.aws/nextjs/start/quickstart/nextjs-app-router-client-components/">
           Review next steps of this tutorial.
         </a>
+      </div>
+      <h1>Device Information</h1>
+      <div className="device-info">
+        {deviceData.map((device) => (
+          <div key={device.id}>
+            <p>Battery: {device.battery}%</p>
+            <p>CO2: {device.co2} ppm</p>
+            <p>Humidity: {device.humidity}%</p>
+            <p>Light Level: {device.light_level}</p>
+            <p>PIR Status: {device.pir}</p>
+            <p>Pressure: {device.pressure} hPa</p>
+            <p>Temperature: {device.temperature}°C</p>
+            <p>TVOC: {device.tvoc} ppb</p>
+          </div>
+        ))}
       </div>
     </main>
   );
