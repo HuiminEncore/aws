@@ -111,6 +111,8 @@ export default function App() {
       <div className="device-info">
         {deviceData.map((device) => (
           <div key={device.id}>
+            <p>Time: {device.time}</p>
+            <p>Device ID: {device.deviceId}</p>
             <p>Battery: {device.battery}%</p>
             <p>CO2: {device.co2} ppm</p>
             <p>Humidity: {device.humidity}%</p>
