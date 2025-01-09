@@ -1,0 +1,72 @@
+{
+  "providers": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-aws-dev-f8089-authRole",
+      "UnauthRoleArn": "arn:aws:iam::597088049955:role/amplify-aws-dev-f8089-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::597088049955:role/amplify-aws-dev-f8089-authRole",
+      "Region": "eu-north-1",
+      "DeploymentBucketName": "amplify-aws-dev-f8089-deployment",
+      "UnauthRoleName": "amplify-aws-dev-f8089-unauthRole",
+      "StackName": "amplify-aws-dev-f8089",
+      "StackId": "arn:aws:cloudformation:eu-north-1:597088049955:stack/amplify-aws-dev-f8089/fe001820-cdd2-11ef-98f2-0ecb4f4ff431",
+      "AmplifyAppId": "d33jlm9g1da92f"
+    }
+  },
+  "function": {
+    "awslambda": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda",
+      "dependsOn": [],
+      "lastBuildTimeStamp": "2025-01-08T15:20:11.943Z",
+      "lastBuildType": "PROD",
+      "lastPackageTimeStamp": "2025-01-08T15:20:11.989Z",
+      "distZipFilename": "awslambda-5647702f6d327a764a50-build.zip",
+      "s3Bucket": {
+        "deploymentBucketName": "amplify-aws-dev-f8089-deployment",
+        "s3Key": "amplify-builds/awslambda-5647702f6d327a764a50-build.zip"
+      },
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-aws-dev-f8089-deployment/amplify-cfn-templates/function/awslambda-cloudformation-template.json",
+        "logicalId": "functionawslambda"
+      },
+      "lastPushTimeStamp": "2025-01-08T15:22:47.789Z",
+      "output": {
+        "LambdaExecutionRoleArn": "arn:aws:iam::597088049955:role/awsLambdaRole8f5c6dee-dev",
+        "Region": "eu-north-1",
+        "CloudWatchEventRule": "amplify-aws-dev-f8089-functionawsla-CloudWatchEvent-kiwqCUcKFkKY",
+        "Arn": "arn:aws:lambda:eu-north-1:597088049955:function:awslambda-dev",
+        "Name": "awslambda-dev",
+        "LambdaExecutionRole": "awsLambdaRole8f5c6dee-dev"
+      },
+      "lastPushDirHash": "V9Zgv3doNnx+7HU1TVPxW4ZaQB8="
+    }
+  },
+  "api": {
+    "iot": {
+      "service": "API Gateway",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [
+        {
+          "category": "function",
+          "resourceName": "awslambda",
+          "attributes": [
+            "Name",
+            "Arn"
+          ]
+        }
+      ],
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-aws-dev-f8089-deployment/amplify-cfn-templates/api/iot-cloudformation-template.json",
+        "logicalId": "apiiot"
+      },
+      "lastPushTimeStamp": "2025-01-08T15:22:47.789Z",
+      "output": {
+        "ApiName": "iot",
+        "RootUrl": "https://i50s3bjec4.execute-api.eu-north-1.amazonaws.com/dev",
+        "ApiId": "i50s3bjec4"
+      },
+      "lastPushDirHash": "OAZbvaU1TC2egiArp/vD+Xp7uZc="
+    }
+  }
+}
